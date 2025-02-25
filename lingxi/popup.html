@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 320px;
+      padding: 20px;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #2d3436;
+      background: #f8f9fa;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: #2d3436;
+      letter-spacing: 1px;
+    }
+
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid #f1f3f5;
+      box-sizing: border-box;
+    }
+
+    h3 {
+      margin: 0 0 16px 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: #2d3436;
+    }
+
+    .input-group {
+      margin-bottom: 12px;
+      width: 100%;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+      color: #2d3436;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #74b816;
+      outline: none;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .primary-button {
+      background: #333333;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .primary-button:hover {
+      background: #000000;
+    }
+
+    .delete-button {
+      background: #333333;
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      float: right;
+    }
+
+    .delete-button:hover {
+      background: #000000;
+    }
+
+    .status {
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .success {
+      background: #ebfbee;
+      color: #2b8a3e;
+    }
+
+    .error {
+      background: #fff5f5;
+      color: #c92a2a;
+    }
+
+    .api-url-input {
+      margin-bottom: 12px;
+      width: 100%;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .prompt-templates {
+      margin-top: 16px;
+    }
+
+    .prompt-list {
+      margin-bottom: 12px;
+    }
+
+    .prompt-item {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .prompt-item button {
+      background: #2b8a3e;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .add-prompt-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .add-prompt-form input {
+      flex: 1;
+    }
+
+    select.prompt-select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .model-select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .api-key-section {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>灵犀</h1>
+  </div>
+
+  <div class="section">
+    <h3>Model Selection</h3>
+    <select id="modelSelect" class="model-select">
+      <option value="openai">OpenAI GPT</option>
+      <option value="gemini">Google Gemini</option>
+      <option value="claude">Anthropic Claude</option>
+      <option value="huggingface">Hugging Face</option>
+    </select>
+  </div>
+
+  <div id="openaiKey" class="section api-key-section">
+    <h3>OpenAI API Key</h3>
+    <div class="api-url-input">
+      <input type="text" id="openaiApiUrl" placeholder="API URL (e.g., https://api.openai.com/v1/chat/completions)">
+    </div>
+    <div class="input-group">
+      <input type="password" id="openaiApiKey" placeholder="Enter your OpenAI API key (sk-...)">
+    </div>
+    <div class="button-container">
+      <button class="primary-button save-key">Save Settings</button>
+    </div>
+    <div class="status"></div>
+  </div>
+
+  <div id="geminiKey" class="section api-key-section hidden">
+    <h3>Google Gemini API Key</h3>
+    <div class="api-url-input">
+      <input type="text" id="geminiApiUrl" placeholder="API URL (e.g., https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent)">
+    </div>
+    <div class="input-group">
+      <input type="password" id="geminiApiKey" placeholder="Enter your Google API key">
+    </div>
+    <div class="button-container">
+      <button class="primary-button save-key">Save Settings</button>
+    </div>
+    <div class="status"></div>
+  </div>
+
+  <div id="claudeKey" class="section api-key-section hidden">
+    <h3>Claude API Key</h3>
+    <div class="api-url-input">
+      <input type="text" id="claudeApiUrl" placeholder="API URL (e.g., https://api.anthropic.com/v1/messages)">
+    </div>
+    <div class="input-group">
+      <input type="password" id="claudeApiKey" placeholder="Enter your Anthropic API key">
+    </div>
+    <div class="button-container">
+      <button class="primary-button save-key">Save Settings</button>
+    </div>
+    <div class="status"></div>
+  </div>
+
+  <div id="huggingfaceKey" class="section api-key-section hidden">
+    <h3>Hugging Face API Key</h3>
+    <div class="api-url-input">
+      <input type="text" id="huggingfaceApiUrl" placeholder="API URL (e.g., https://api-inference.huggingface.co/models/your-model)">
+    </div>
+    <div class="input-group">
+      <input type="password" id="huggingfaceApiKey" placeholder="Enter your Hugging Face API key">
+    </div>
+    <div class="button-container">
+      <button class="primary-button save-key">Save Settings</button>
+    </div>
+    <div class="status"></div>
+  </div>
+
+  <div class="section">
+    <h3>Default Prompt Template</h3>
+    <select id="promptSelect" class="prompt-select">
+      <option value="">Select a template...</option>
+    </select>
+    <div class="input-group">
+      <textarea id="defaultPrompt" placeholder="Enter your default prompt template. Use {text} as placeholder for selected text."></textarea>
+    </div>
+    <div class="button-container">
+      <button id="savePrompt" class="primary-button">Save as Default</button>
+    </div>
+    <div id="promptStatus" class="status"></div>
+  </div>
+
+  <div class="section prompt-templates">
+    <h3>Prompt Templates</h3>
+    <div id="promptList" class="prompt-list">
+      <!-- Templates will be added here dynamically -->
+    </div>
+    <div class="add-prompt-form">
+      <input type="text" id="newPromptName" placeholder="Template name">
+      <textarea id="newPromptText" placeholder="Template text"></textarea>
+      <button id="addPrompt" class="primary-button">Add</button>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

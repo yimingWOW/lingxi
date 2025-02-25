@@ -1,0 +1,32 @@
+{
+    "manifest_version": 3,
+    "name": "灵犀",
+    "version": "1.0",
+    "description": "Select text and ask ChatGPT",
+    "permissions": [
+      "contextMenus",
+      "storage",
+      "activeTab",
+      "scripting"
+    ],
+    "host_permissions": [
+      "https://api.openai.com/*",
+      "https://generativelanguage.googleapis.com/*",
+      "https://api.anthropic.com/*",
+      "https://api-inference.huggingface.co/*",
+      "<all_urls>"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"],
+        "run_at": "document_end"
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
