@@ -1,20 +1,40 @@
 # 灵犀
-一个chrome插件：在浏览网页时便捷的使用chatgpt固定提问
 
-下载本仓库文件；
+一个 Chrome 插件：在浏览网页时便捷地使用大语言模型进行固定提问。
 
-首先打开chrome浏览器插件页面，点击“管理扩展程序”，点击右上角的“开发者模式”；然后点击“加载已解压的扩展程序”，选择本仓库下的lingxi文件夹。
+## 安装步骤
 
-安装后，打开灵犀插件，在弹出的页面中输入 你想使用的大模型的api key，然后点击保存。
+1. 下载本仓库文件
+2. 打开 Chrome 浏览器插件页面，点击"管理扩展程序"
+3. 开启右上角的"开发者模式"
+4. 点击"加载已解压的扩展程序"，选择本仓库下的 lingxi 文件夹
+5. 安装完成后，在浏览器右上角点击灵犀图标
+6. 在弹出的页面中输入相应的 API Key，然后点击保存
 
-目前我添加的大模型有：
-    - openai: 'https://api.openai.com/v1/chat/completions',
-    - gemini: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent',
-    - claude: 'https://api.anthropic.com/v1/messages',
-    - huggingface: 'https://api-inference.huggingface.co/models/facebook/opt-350m'
+## 支持的模型
 
+目前支持以下大语言模型：
 
-获取大模型的api key：https://platform.openai.com/settings/organization/api-keys 
+- OpenAI GPT
+  - API 地址：`https://api.openai.com/v1/chat/completions`
+  - [获取 API Key](https://platform.openai.com/settings/organization/api-keys)
+
+- Google Gemini
+  - API 地址：`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent`
+
+- Anthropic Claude
+  - API 地址：`https://api.anthropic.com/v1/messages`
+
+- Hugging Face
+  - API 地址：`https://api-inference.huggingface.co/models/facebook/opt-350m`
+
+## 使用说明
+
+1. 首先需要注册相应平台的账号并获取 API Key
+2. 在插件设置中选择想要使用的模型
+3. 输入对应的 API Key 和 API 地址（如有需要）
+4. 保存设置后即可使用
+
 获取gemini的api key：https://console.cloud.google.com/apis/credentials?project=gemini-1-pro-v1516
 获取claude的api key：https://console.anthropic.com/settings/keys
 获取huggingface的api key：https://huggingface.co/settings/tokens
