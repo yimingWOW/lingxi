@@ -121,6 +121,7 @@ async function callOpenAI(text, apiKey) {
   
   const { openaiApiUrl } = await chrome.storage.sync.get('openaiApiUrl');
   const apiUrl = openaiApiUrl || 'https://api.openai.com/v1/chat/completions';
+  console.log('OpenAI API URL:', apiUrl);
   
   const response = await fetch(apiUrl, {
     method: 'POST',

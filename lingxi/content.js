@@ -173,6 +173,8 @@ function injectStyles() {
       max-height: calc(80vh - 45px);
       line-height: 1.5;
       font-size: 14px;
+      color: #000000;
+      background-color: #ffffff;
     }
 
     .gpt-response-loading {
@@ -234,3 +236,78 @@ document.addEventListener('keydown', (e) => {
     testResponseContainer();
   }
 });
+
+function createOrUpdateResponseBox(response, status = 'success') {
+  let responseBox = document.getElementById('ai-response-box');
+  
+  if (!responseBox) {
+    responseBox = document.createElement('div');
+    responseBox.id = 'ai-response-box';
+    responseBox.style.cssText = `
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      width: 300px;
+      max-height: 400px;
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-y: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 10000;
+      color: #000000;  /* 文字颜色改为纯黑 */
+    `;
+
+    // 添加关闭按钮
+    const closeButton = document.createElement('button');
+    closeButton.style.cssText = `
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: none;
+      border: none;
+      color: #000000;  /* 关闭按钮也改为黑色 */
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px 8px;
+      border-radius: 4px;
+    `;
+    closeButton.innerHTML = '×';
+    closeButton.onclick = () => responseBox.remove();
+    responseBox.appendChild(closeButton);
+
+    // 创建内容容器
+    const contentDiv = document.createElement('div');
+    contentDiv.style.cssText = `
+      margin-top: 10px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    `;
+    contentDiv.id = 'ai-response-content';
+    responseBox.appendChild(contentDiv);
+
+    document.body.appendChild(responseBox);
+  }
+
+  // 更新内容和样式
+  const contentDiv = responseBox.querySelector('#ai-response-content');
+  
+  // 根据状态设置不同的样式
+  switch (status) {
+    case 'loading':
+      contentDiv.style.color = '#000000';  // 加载中也用黑色
+      break;
+    case 'error':
+      contentDiv.style.color = '#dc3545';  // 错误保持红色
+      break;
+    case 'success':
+      contentDiv.style.color = '#000000';  // 成功用黑色
+      break;
+  }
+
+  contentDiv.textContent = response;
+}
