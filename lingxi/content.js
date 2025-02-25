@@ -15,7 +15,7 @@ function createResponseContainer() {
   container.className = 'gpt-response-container';
   container.innerHTML = `
     <div class="gpt-response-header">
-      <h3 class="gpt-response-title">AI Response</h3>
+      <h3 class="gpt-response-title">LingXi Response</h3>
       <div class="gpt-response-controls">
         <button class="gpt-response-minimize">-</button>
         <button class="gpt-response-close">×</button>
